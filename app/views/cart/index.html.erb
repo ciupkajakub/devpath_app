@@ -1,0 +1,33 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
+  <% @purchase_products.each do |product| %>
+    <tr>
+      <%#= binding.pry %>
+      <td><%= product.product.name %></td>
+      <td><%= product.product_amount %></td>
+      <td>
+        <%= form_with(model: product, url: :update_purchase_product, method: :patch) do |form| %>
+          <%= hidden_field_tag 'product_id', "#{product.id}" %>
+          <%= form.select :product_amount, options_for_select(1..product.product.stock_amount, product.product_amount) %>
+          <%= form.submit 'Update cart' %>
+        <% end %>
+      </td>
+      <td>
+        <%= form_with(model: product, url: :destroy_purchase_product, method: :delete) do |form| %>
+          <%= hidden_field_tag 'product_id', "#{product.id}" %>
+          <%= form.submit 'Delete form cart' %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<!--maybe some turbo 🙄-->
+
+<%= form_with(model: @current_purchase, url: :buy_purchase_products, method: :put) do |form| %>
+  <%= form.submit 'Buy products' %>
+<% end %>
