@@ -1,0 +1,37 @@
+<%= search_form_for @q do |f| %>
+
+  <%= f.label :name_cont %>
+  <%= f.search_field :name_cont %>
+
+  <%= f.label :description_cont %>
+  <%= f.search_field :description_cont %>
+
+  <%= f.label :categories_id_eq, "Category" %>
+  <%= f.collection_select :categories_id_eq, Category.order(:name), :id, :name, include_blank: 'All' %>
+
+  <%= f.submit %>
+<% end %>
+
+<% @products.each do |product| %>
+  <div>
+    <h2><%= link_to "#{product.name}", product %></h2>
+    <p><%= button_to "Delete", product_path(product), method: :delete %></p>
+    <p><%= button_to "Archive", archive_product_path(product), method: :patch %></p>
+  </div>
+  <% if product.archived_at != nil %>
+    <p> archived </p>
+<!--    # maybe some turbo 🥸-->
+    <% end %>
+  <div>
+    <h2>categories</h2>
+    <% product.categories.each do |category| %>
+      <p><%= category.name %></p>
+    <% end %>
+  </div>
+<% end %>
+<%= paginate @products %>
+
+<%= form_tag({ controller: "admins/products", action: "upload_product_csv" }, url: :upload_product_csv_path, :multipart => true) do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag(value = 'Upload products csv') %>
+<% end %>
