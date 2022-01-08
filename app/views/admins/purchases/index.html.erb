@@ -1,0 +1,46 @@
+<%= search_form_for @q do |f| %>
+
+  <%#= f.label :purchase_date_cont %>
+  <%#= f.search_field :purchase_date_cont %>
+
+  <%= f.label :purchase_date_gteq, 'Date from' %>
+  <%= f.text_field :purchase_date_gteq %>
+
+  <%= f.label :purchase_date_lteq, 'Date to' %>
+  <%= f.text_field :purchase_date_lteq %>
+
+  <%= f.label :purchase_products_product_id_eq, "Products" %>
+  <%= f.collection_select :purchase_products_product_id_eq, Product.order(:name), :id, :name, include_blank: 'All' %>
+
+  <%= f.label :user_email_eq, "Users" %>
+  <%= f.collection_select :user_email_eq, User.order(:email), :email, :email, include_blank: 'All' %>
+
+  <%= f.submit %>
+<% end %>
+
+
+<table>
+  <tr>
+    <th>Purchase id</th>
+    <th>Purchase date</th>
+    <th>User</th>
+    <th>Products</th>
+  </tr>
+  <% @purchases.each do |purchase| %>
+    <tr>
+      <td><%= purchase.id %></td>
+      <td><%= purchase.purchase_date %></td>
+      <td><%= User.find_by(id: purchase.user_id).email %></td>
+      <!--    TODO  use some query object + presenter ?-->
+      <td>
+        <% purchase.purchase_products.each do |p| %>
+
+          <li>
+            <%= Product.find_by(id: p.product_id).try(:name) %>
+          </li>
+        <% end %>
+      </td>
+  <% end %>
+  </tr>
+</table>
+<%= paginate @purchases %>

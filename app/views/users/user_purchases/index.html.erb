@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>Purchase id</th>
+    <th>Purchase date</th>
+    <th>Products</th>
+  </tr>
+  <% @user_purchases.each do |purchase| %>
+    <tr>
+      <td><%= purchase.id %></td>
+      <td><%= purchase.purchase_date.try(:to_date) %></td>
+      <td>
+        <% purchase.purchase_products.each do |p| %>
+          <li>
+            <%= Product.find_by(id: p.product_id).try(:name) %>
+          </li>
+        <% end %>
+      </td>
+  <% end %>
+  </tr>
+</table>
