@@ -1,0 +1,16 @@
+<div>
+  <p>
+    <strong>name:</strong>
+    <%= category.name %>
+  </p>
+  <p>
+    <strong>description:</strong>
+    <%= category.description %>
+  </p>
+  <p>
+    <%= link_to "Edit this category", edit_category_path(@category) %>
+  </p>
+  <p>
+    <%= link_to "Back to categories", categories_path %>
+  </p>
+</div>
