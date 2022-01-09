@@ -26,15 +26,13 @@
     <th>User</th>
     <th>Products</th>
   </tr>
-  <% @purchases.each do |purchase| %>
+  <% @purchases.decorate.each do |purchase| %>
     <tr>
       <td><%= purchase.id %></td>
       <td><%= purchase.purchase_date %></td>
-      <td><%= User.find_by(id: purchase.user_id).email %></td>
-      <!--    TODO  use some query object + presenter ?-->
+      <td><%= purchase.user_email %></td>
       <td>
         <% purchase.purchase_products.each do |p| %>
-
           <li>
             <%= Product.find_by(id: p.product_id).try(:name) %>
           </li>
