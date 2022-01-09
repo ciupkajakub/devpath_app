@@ -49,7 +49,7 @@ class Admins::ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = Product.find(params[:id]).decorate
   end
 
   def product_archived

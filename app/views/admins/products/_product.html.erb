@@ -8,11 +8,7 @@
     <%= product.description %>
   </p>
   <div style="width: 90px; height: auto">
-    <% if @product.image.present? %>
-      <p>
-        <%= image_tag(@product.image) %>
-      </p>
-    <% end %>
+    <%= product.image %>
   </div>
   <p>
     <%= link_to "Edit this product", edit_product_path(@product) %>
