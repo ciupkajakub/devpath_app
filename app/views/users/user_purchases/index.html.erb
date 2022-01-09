@@ -9,9 +9,9 @@
       <td><%= purchase.id %></td>
       <td><%= purchase.purchase_date.try(:to_date) %></td>
       <td>
-        <% purchase.purchase_products.each do |p| %>
+        <% purchase.purchase_products.decorate.each do |purchase_product| %>
           <li>
-            <%= Product.find_by(id: p.product_id).try(:name) %>
+            <%= purchase_product.product %>
           </li>
         <% end %>
       </td>
