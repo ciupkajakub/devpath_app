@@ -12,6 +12,9 @@
   <%= f.label :purchase_products_product_id_eq, "Products" %>
   <%= f.collection_select :purchase_products_product_id_eq, Product.order(:name), :id, :name, include_blank: 'All' %>
 
+  <%= f.label :aasm_state_eq, "Purchase state" %>
+  <%= f.select :aasm_state_eq, ['pending', 'bought'], include_blank: 'All' %>
+
   <%= f.label :user_email_eq, "Users" %>
   <%= f.collection_select :user_email_eq, User.order(:email), :email, :email, include_blank: 'All' %>
 
@@ -23,6 +26,7 @@
   <tr>
     <th>Purchase id</th>
     <th>Purchase date</th>
+    <th>Purchase status</th>
     <th>User</th>
     <th>Products</th>
   </tr>
@@ -30,6 +34,7 @@
     <tr>
       <td><%= purchase.id %></td>
       <td><%= purchase.purchase_date %></td>
+      <td><%= purchase.aasm_state %></td>
       <td><%= purchase.user_email %></td>
       <td>
         <% purchase.purchase_products.decorate.each do |purchase_product| %>
