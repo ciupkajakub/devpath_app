@@ -35,7 +35,7 @@ class Admins::ProductsController < ApplicationController
   end
 
   def upload_product_csv
-    Product.upload(params[:file])
+    UploadProductCsv.call(params[:file])
   end
 
   def archive #decorator maybe 🥸
