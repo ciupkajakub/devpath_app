@@ -15,7 +15,6 @@
           <% if product.archived_at == nil %>
             <%= form_with(model: @purchase, url: :create_purchase_products) do |form| %>
               <%= hidden_field_tag 'product_id', "#{product.id}" %>
-              <%= form.select :product_amount, options_for_select(1..product.stock_amount) %>
               <% if product.stock_amount != 0 %>
                 <%= form.submit 'Add to card' %>
               <% end %>
