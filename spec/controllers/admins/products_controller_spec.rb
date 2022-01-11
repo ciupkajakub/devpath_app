@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe Admins::ProductsController do
   context 'POST products#create' do
     describe 'When admin is authenticated' do
@@ -38,40 +39,60 @@ RSpec.describe Admins::ProductsController do
   end
   context 'POST products#import_product_csv' do
     describe 'When admin is authenticated' do
-      it 'creates products with single category' do
-        require 'csv'
-        admin = create(:admin)
-        sign_in admin
-        category1 = create(:category, name: 'Fruits')
-        category2 = create(:category, name: 'Meat')
-        # binding.pry
-        file = CSV.generate do |csv|
-          csv << ['name', 'description', 'stock_amount', 'category'] #hash keys
-          csv << ['apple', 'tasty', 30, 'Fruits']
-          csv << ['kiwi', 'tasty fruit', 10, 'Meat']
+      describe 'When categories are given' do
+        it 'creates products with single category' do
+          require 'csv'
+          admin = create(:admin)
+          sign_in admin
+          category1 = create(:category, name: 'Fruits')
+          category2 = create(:category, name: 'Meat')
+          # binding.pry
+          file = CSV.generate do |csv|
+            csv << ['name', 'description', 'stock_amount', 'category'] #hash keys
+            csv << ['apple', 'tasty', 30, 'Fruits']
+            csv << ['kiwi', 'tasty fruit', 10, 'Meat']
+          end
+          allow(File).to receive(:open).and_return(file)
+
+          expect { post :upload_product_csv, params: { file: 'filename' } }.to change(Product, :count).by(2)
+
+          expect(Product.last.categories.count).to eq(1)
         end
-        allow(File).to receive(:open).and_return(file)
+        it 'creates products with multiple categories' do
+          require 'csv'
+          admin = create(:admin)
+          sign_in admin
+          category1 = create(:category, name: 'Fruits')
+          category2 = create(:category, name: 'Meat')
+          file = CSV.generate do |csv|
+            csv << ['name', 'description', 'stock_amount', 'category'] #hash keys
+            csv << ['apple', 'tasty', 30, 'Fruits, meat']
+            csv << ['kiwi', 'tasty fruit', 10, 'Meat, fruits']
+          end
+          allow(File).to receive(:open).and_return(file)
 
-        expect { post :upload_product_csv, params: { file: 'filename' } }.to change(Product, :count).by(2)
+          expect { post :upload_product_csv, params: { file: 'filename' } }.to change(Product, :count).by(2)
 
-        expect(Product.last.categories.count).to eq(1)
+          expect(Product.last.categories.count).to eq(2)
+        end
       end
-      it 'creates products with multiple categories' do
-        require 'csv'
-        admin = create(:admin)
-        sign_in admin
-        category1 = create(:category, name: 'Fruits')
-        category2 = create(:category, name: 'Meat')
-        file = CSV.generate do |csv|
-          csv << ['name', 'description', 'stock_amount', 'category'] #hash keys
-          csv << ['apple', 'tasty', 30, 'Fruits, meat']
-          csv << ['kiwi', 'tasty fruit', 10, 'Meat, fruits']
+      describe 'When categories are not given' do
+        it 'redirects and renders flash message' do
+          require 'csv'
+          admin = create(:admin)
+          sign_in admin
+          file = CSV.generate do |csv|
+            csv << ['name', 'description', 'stock_amount'] #hash keys
+            csv << ['apple', 'tasty', 30]
+            csv << ['kiwi', 'tasty fruit ', 10]
+          end
+          allow(File).to receive(:open).and_return(file)
+
+          post :upload_product_csv, params: { file: 'filename' }
+
+          expect(response).to redirect_to root_path
+          expect(flash[:alert]).to eq('CSV with products is missing categories, please add them!')
         end
-        allow(File).to receive(:open).and_return(file)
-
-        expect { post :upload_product_csv, params: { file: 'filename' } }.to change(Product, :count).by(2)
-
-        expect(Product.last.categories.count).to eq(2)
       end
     end
   end
@@ -92,7 +113,6 @@ RSpec.describe Admins::ProductsController do
           sign_in admin
           category1 = create(:category, category_uid: 'b26a58a0-ec49-4009-b616-f4111e40619c')
           product = create(:product, product_uid: 'b26a44a0-ec49-4009-b616-f4111e40619c', category_ids: ["#{category1.id}"], archived_at: DateTime.now)
-          # binding.pry
           patch :archive, params: { 'id' => "#{product.id}" }
           expect(product.reload.archived_at).to eq(nil)
         end
