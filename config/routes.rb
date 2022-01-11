@@ -44,7 +44,11 @@ Rails.application.routes.draw do
         post 'upload_product_csv'
       end
     end
-    resources :purchases, controller: 'admins/purchases'
+    resources :purchases, controller: 'admins/purchases' do
+      collection do
+        post 'export_purchases'
+      end
+    end
     resources :statistics, controller: 'admins/statistics'
   end
 

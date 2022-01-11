@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Purchases") do |sheet|
+  sheet.add_row ['Purchase_id', 'Purchase date', 'User', 'Purchase state', 'Product', 'Amount']
+  @purchases.decorate.each do |purchase|
+    if purchase.purchase_products != []
+      purchase.purchase_products.decorate.each do |purchase_product|
+        sheet.add_row [purchase.id,
+                       purchase.purchase_date&.to_s,
+                       purchase.user_email,
+                       purchase.aasm_state,
+                       purchase_product&.product,
+                       purchase_product&.product_amount]
+      end
+    else
+      sheet.add_row [purchase.id,
+                     purchase.purchase_date&.to_s,
+                     purchase.user_email,
+                     purchase.aasm_state]
+    end
+  end
+end
