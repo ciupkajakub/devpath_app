@@ -3,6 +3,7 @@ RSpec.describe CartController do
   context 'PUT cart#update' do
     it 'updates product amount in the shopping cart' do
       user = create(:user)
+      sign_in user
       category = create(:category)
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
@@ -19,6 +20,7 @@ RSpec.describe CartController do
   context 'DESTROY cart#delete' do
     it 'deletes product from the shopping cart' do
       user = create(:user)
+      sign_in user
       category = create(:category)
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
@@ -34,6 +36,7 @@ RSpec.describe CartController do
   context 'PUT cart#buy' do
     it 'updates purchase`s aasm_state from pending to bought' do
       user = create(:user)
+      sign_in user
       category = create(:category)
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
@@ -50,6 +53,7 @@ RSpec.describe CartController do
 
     it 'decreases the stock amount of product by amount of bought products' do
       user = create(:user)
+      sign_in user
       category = create(:category)
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
@@ -64,6 +68,7 @@ RSpec.describe CartController do
 
     it 'updates purchase_date' do
       user = create(:user)
+      sign_in user
       category = create(:category)
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
@@ -76,6 +81,7 @@ RSpec.describe CartController do
 
     it 'sets session purchase to nil after buuying products' do
       user = create(:user)
+      sign_in user
       category = create(:category)
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
