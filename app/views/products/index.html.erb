@@ -10,7 +10,7 @@
     <tr>
       <td><%= product.name %></td>
       <td><%= product.stock_amount %></td>
-      <% if not current_user.is_a?(User) %>
+      <% if current_user.is_a?(User) %>
         <td>
           <% if product.archived_at == nil %>
             <%= form_with(model: @purchase, url: :create_purchase_products) do |form| %>

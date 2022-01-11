@@ -1,5 +1,6 @@
 class CartController < ApplicationController
   before_action :set_purchase_product, only: %i[ update destroy ]
+  before_action :authenticate_user!
 
   def index
     @current_purchase = helpers.current_purchase
