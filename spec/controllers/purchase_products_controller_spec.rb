@@ -7,8 +7,7 @@ RSpec.describe PurchaseProductsController do
           user = create(:user)
           sign_in user
           category = create(:category)
-          product = create(:product)
-          product.categories = [category]
+          product = create(:product, category_ids: [category.id])
           session[:purchase_id] = nil
 
           expect {
@@ -21,8 +20,7 @@ RSpec.describe PurchaseProductsController do
           user = create(:user)
           sign_in user
           category = create(:category)
-          product = create(:product)
-          product.categories = [category]
+          product = create(:product, category_ids: [category.id])
           session[:purchase_id] = nil
           post :create, params: { "product_id" => "#{product.id}" }
 
@@ -37,8 +35,7 @@ RSpec.describe PurchaseProductsController do
           user = create(:user)
           sign_in user
           category = create(:category)
-          product = create(:product)
-          product.categories = [category]
+          product = create(:product, category_ids: [category.id])
           purchase = create(:purchase, user_id: user.id)
           session[:purchase_id] = purchase.id
 
@@ -53,8 +50,7 @@ RSpec.describe PurchaseProductsController do
           user = create(:user)
           sign_in user
           category = create(:category)
-          product = create(:product)
-          product.categories = [category]
+          product = create(:product, category_ids: [category.id])
           purchase = create(:purchase, user_id: user.id)
           session[:purchase_id] = purchase.id
 

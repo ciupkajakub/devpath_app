@@ -5,7 +5,8 @@ RSpec.describe UploadProductCsv do
     describe 'when categories are given' do
       it 'creates products with single category' do
         require 'csv'
-        category = create(:category, name: 'Fruits')
+        category1 = create(:category, name: 'Fruits')
+        category2 = create(:category, name: 'meat')
 
         file = CSV.generate do |csv|
           csv << ['name', 'description', 'stock_amount', 'category'] #hash keys
@@ -15,7 +16,7 @@ RSpec.describe UploadProductCsv do
         allow(File).to receive(:open).and_return(file)
 
         expect { UploadProductCsv.call(file) }.to change { Product.count }.from(0).to(2)
-        expect(Product.last.categories).to eq([category])
+        expect(Product.last.categories).to eq([category1])
       end
       it 'creates products with multiple categories' do
         category1 = create(:category, name: 'Fruits')

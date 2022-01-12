@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     get 'admin/edit' => 'admins/registrations#edit', :as => 'edit_admin_registration'
     put 'admin' => 'admins/registrations#update', :as => 'admin_registration'
     get '/admin/main' => 'admins/admins#index', as: :admin_main
-    get '/admin/users' => 'admins/admins#index', as: :users#wtf
+    get '/admin/users' => 'admins/admins#index', as: :users #wtf
     post 'admin/users' => 'admins/users#create', as: :create_user
     get '/admin/users/new' => 'admins/users#new', as: :new_users
   end
@@ -56,4 +56,10 @@ Rails.application.routes.draw do
     resources :user_purchases, controller: 'users/user_purchases'
   end
   resources :products, only: [:index, :show]
+
+  namespace :api do
+    namespace :v1 do
+      resources :products
+    end
+  end
 end

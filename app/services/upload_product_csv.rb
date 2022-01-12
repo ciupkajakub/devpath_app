@@ -21,7 +21,7 @@ class UploadProductCsv < Patterns::Service
       else
         categories = transformed_key_row['category'].split(', ')&.
           map { |c| Category.select { |s| s.name.downcase == c.strip.downcase } }.flatten
-        p.categories = categories
+        p.assign_attributes(category_ids: categories.map{|c| c.id})
         p.save!
       end
     end
