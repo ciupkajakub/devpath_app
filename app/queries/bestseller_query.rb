@@ -1,7 +1,7 @@
 class BestsellerQuery
 
-  def initialize(purchase_products = PurchaseProduct.select { |p| p.purchase.aasm_state == 'bought' })
-    @purchase_products = purchase_products
+  def initialize
+    @purchase_products = PurchaseProduct.select { |p| p.purchase&.aasm_state == 'bought' }
   end
 
   def resolve
@@ -26,5 +26,9 @@ class BestsellerQuery
   def products_amount_hash
     q = @purchase_products.map { |c| { c[:product_id] => c[:product_amount] } }
     q.inject { |acc, next_obj| acc.merge(next_obj) { |key, arg1, arg2| arg1 + arg2 } }
+  end
+
+  def cache_key
+    PurchaseProduct.last.created_at
   end
 end
