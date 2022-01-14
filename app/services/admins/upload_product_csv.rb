@@ -1,4 +1,4 @@
-class UploadProductCsv < Patterns::Service
+class Admins::UploadProductCsv < Patterns::Service
   require 'csv'
 
   def initialize(file)

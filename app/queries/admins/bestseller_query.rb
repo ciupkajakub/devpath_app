@@ -1,4 +1,4 @@
-class BestsellerQuery
+class Admins::BestsellerQuery
 
   def initialize
     @purchase_products = PurchaseProduct.select { |p| p.purchase&.aasm_state == 'bought' }

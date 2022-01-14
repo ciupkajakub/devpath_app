@@ -32,10 +32,10 @@ class Admins::Statistics < Patterns::Calculation
   end
 
   def bestseller
-    BestsellerQuery.new.resolve
+    Admins::BestsellerQuery.new.resolve
   end
 
   def sold_products_amount
-    BestsellerQuery.new.sold_products_count
+    Admins::BestsellerQuery.new.sold_products_count
   end
 end

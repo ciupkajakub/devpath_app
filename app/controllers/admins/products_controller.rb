@@ -36,7 +36,7 @@ class Admins::ProductsController < ApplicationController
 
   def upload_product_csv
     begin
-      UploadProductCsv.call(params[:file])
+      Admins::UploadProductCsv.call(params[:file])
     rescue CsvNoCategoryError => e
       flash[:alert] = e.message
       redirect_to root_path

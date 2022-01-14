@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UploadProductCsv do
+RSpec.describe Admins::UploadProductCsv do
   context '.call' do
     describe 'when categories are given' do
       it 'creates products with single category' do
@@ -15,7 +15,7 @@ RSpec.describe UploadProductCsv do
         end
         allow(File).to receive(:open).and_return(file)
 
-        expect { UploadProductCsv.call(file) }.to change { Product.count }.from(0).to(2)
+        expect { Admins::UploadProductCsv.call(file) }.to change { Product.count }.from(0).to(2)
         expect(Product.last.categories).to eq([category1])
       end
       it 'creates products with multiple categories' do
@@ -28,7 +28,7 @@ RSpec.describe UploadProductCsv do
         end
         allow(File).to receive(:open).and_return(file)
 
-        expect { UploadProductCsv.call(file) }.to change { Product.count }.from(0).to(2)
+        expect { Admins::UploadProductCsv.call(file) }.to change { Product.count }.from(0).to(2)
         expect(Product.last.categories).to eq([category1, category2])
       end
       it 'creates products with multiple categories with whitespaces' do
@@ -41,7 +41,7 @@ RSpec.describe UploadProductCsv do
         end
         allow(File).to receive(:open).and_return(file)
 
-        expect { UploadProductCsv.call(file) }.to change { Product.count }.from(0).to(2)
+        expect { Admins::UploadProductCsv.call(file) }.to change { Product.count }.from(0).to(2)
         expect(Product.last.categories).to eq([category1, category2])
       end
     end
@@ -53,7 +53,7 @@ RSpec.describe UploadProductCsv do
           csv << ['kiwi', 'tasty fruit ', 10]
         end
         allow(File).to receive(:open).and_return(file)
-        expect { UploadProductCsv.call(file) }.to raise_error(CsvNoCategoryError)
+        expect { Admins::UploadProductCsv.call(file) }.to raise_error(CsvNoCategoryError)
       end
     end
   end

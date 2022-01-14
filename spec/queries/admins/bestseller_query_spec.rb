@@ -1,4 +1,4 @@
-RSpec.describe BestsellerQuery do
+RSpec.describe Admins::BestsellerQuery do
   context '#resolve' do
     it 'finds the bestseller' do
       user1 = create(:user)
@@ -21,7 +21,7 @@ RSpec.describe BestsellerQuery do
       purchase_product5 = create(:purchase_product, purchase_id: purchase2.id,
                                  product_id: product1.id, product_amount: 3)
 
-      expect(BestsellerQuery.new.resolve).to eq(product1)
+      expect(Admins::BestsellerQuery.new.resolve).to eq(product1)
     end
     it 'finds total amount of sold products' do
       user1 = create(:user)
@@ -44,7 +44,7 @@ RSpec.describe BestsellerQuery do
       purchase_product5 = create(:purchase_product, purchase_id: purchase2.id,
                                  product_id: product1.id, product_amount: 3)
 
-      expect(BestsellerQuery.new.sold_products_count).to eq(9)
+      expect(Admins::BestsellerQuery.new.sold_products_count).to eq(9)
     end
   end
 end
