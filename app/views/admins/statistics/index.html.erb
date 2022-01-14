@@ -1,17 +1,16 @@
 <table>
   <tr>
     <th>Total users count</th>
-    <th>Amount available</th>
+    <th>Total categories count</th>
+    <th>Total products count</th>
     <th>Bestseller</th>
-    <th>Sold products amount</th>
-
+    <th>Products sold</th>
   </tr>
   <tr>
-<!--        <td><<%#= @users %>/td>-->
-    <td></td>
-    <td><%= @bestseller.result.name %></td>
-    <td><%= @sold_products_amount.result %></td>
+    <td><%= @users %></td>
+    <td><%= @categories %></td>
+    <td><%= @products %></td>
+    <td><%= @bestseller.name %></td>
+    <td><%= @sold_products_amount %></td>
   </tr>
 </table>
-
-
