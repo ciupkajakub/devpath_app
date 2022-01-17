@@ -48,7 +48,7 @@ gem 'draper'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
-gem "rails_best_practices"
+gem 'rails_best_practices'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -72,11 +72,11 @@ gem 'bootsnap', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'brakeman'
+  gem 'bullet'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 6.2'
   gem 'rspec-rails', '~> 5.0.0'
-  gem 'brakeman'
-  gem 'bullet'
 end
 
 group :development do

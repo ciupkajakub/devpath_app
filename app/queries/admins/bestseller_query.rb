@@ -1,7 +1,9 @@
 module Admins
   class BestsellerQuery
     def initialize
-      @purchase_products = PurchaseProduct.select { |p| p.purchase&.aasm_state == 'bought' }
+      @purchase_products = PurchaseProduct.includes([:purchase]).select do |p|
+        p.purchase&.aasm_state == 'bought'
+      end
     end
 
     def resolve

@@ -7,7 +7,7 @@ module Admins
       @q = all_purchases.ransack(params[:q])
       @q.sorts = 'purchase_date asc'
       @query_params = query_params
-      @purchases = @q.result(distinct: true).includes(:purchase_products, :user).
+      @purchases = @q.result(distinct: true).includes(:purchase_products).
                    page(params[:page]).per(4)
     end
 

@@ -6,7 +6,7 @@ module Admins
     def index
       @q = Product.ransack(params[:q])
       @q.sorts = 'name asc'
-      @products = @q.result(distinct: true).
+      @products = @q.result(distinct: true).includes([:categories]).
                   page(params[:page]).per(4)
     end
 
