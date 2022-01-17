@@ -7,7 +7,7 @@ module Admins
       @q = Product.ransack(params[:q])
       @q.sorts = 'name asc'
       @products = @q.result(distinct: true).includes([:categories]).
-                  page(params[:page]).per(4)
+        page(params[:page]).per(4)
     end
 
     def show; end
@@ -20,8 +20,11 @@ module Admins
 
     def create
       @product = Product.new(product_params)
-      @product.save
-      redirect_to products_path
+      if @product.save
+        redirect_to products_path, notice: 'Product has been successfully created.'
+      else
+        redirect_to products_path, notice: @product.errors.full_messages.first
+      end
     end
 
     def update
