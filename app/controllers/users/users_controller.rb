@@ -1,6 +1,7 @@
-class Users::UsersController < ApplicationController
-  before_action :authenticate_user!
+module Users
+  class UsersController < ApplicationController
+    before_action :authenticate_user!
 
-  def index
+    def index; end
   end
 end

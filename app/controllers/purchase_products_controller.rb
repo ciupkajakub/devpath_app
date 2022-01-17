@@ -1,5 +1,4 @@
 class PurchaseProductsController < ApplicationController
-
   def create
     purchase = helpers.current_purchase
     purchase.purchase_products.create(product_id: purchase_product,

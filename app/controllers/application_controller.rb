@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def current_user
-    if devise_controller?
-      @current_user ||= super
-    else
-      @current_user ||= super || Guest.new
-    end
+    @current_user ||= if devise_controller?
+                        super
+                      else
+                        super || Guest.new
+                      end
   end
 
   def devise_parameter_sanitizer

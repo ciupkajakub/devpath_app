@@ -6,12 +6,14 @@ RSpec.describe Admins::UsersController do
         admin = create(:admin)
         sign_in admin
 
-        expect { post :create, :params => { :user => { 'email' => 'john@doe.com',
-                                                       'password' => '',
-                                                       ' password_confirmation' => '',
-                                                       'current_password' => '123456',
-                                                       'first_name' => 'John',
-                                                       'last_name' => 'Doe' } } }.
+        expect do
+          post :create, params: { user: { 'email' => 'john@doe.com',
+                                          'password' => '',
+                                          ' password_confirmation' => '',
+                                          'current_password' => '123456',
+                                          'first_name' => 'John',
+                                          'last_name' => 'Doe' } }
+        end.
           to change(User, :count).by(1)
       end
     end

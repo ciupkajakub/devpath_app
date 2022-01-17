@@ -9,12 +9,12 @@ RSpec.describe BuyPurchaseProducts do
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
       purchase = create(:purchase, user_id: user.id)
-      purchase_product = create(:purchase_product, purchase_id: purchase.id, product_id: product.id)
+      create(:purchase_product, purchase_id: purchase.id, product_id: product.id)
       current_purchase = purchase
 
       expect { BuyPurchaseProducts.call(current_purchase) }.
         to change { purchase.reload.aasm_state }.
-          from('pending').to('bought')
+        from('pending').to('bought')
       expect(purchase).to transition_from(:pending).to(:bought).on_event(:buy)
     end
 
@@ -39,10 +39,12 @@ RSpec.describe BuyPurchaseProducts do
       product = create(:product, category_ids: [category.id])
       product.categories = [category]
       purchase = create(:purchase, user_id: user.id)
-      purchase_product = create(:purchase_product, purchase_id: purchase.id, product_id: product.id)
+      create(:purchase_product, purchase_id: purchase.id, product_id: product.id)
       current_purchase = purchase
 
-      expect { BuyPurchaseProducts.call(current_purchase) }.to change { purchase.reload.purchase_date }
+      expect { BuyPurchaseProducts.call(current_purchase) }.to change {
+                                                                 purchase.reload.purchase_date
+                                                               }
     end
   end
 end

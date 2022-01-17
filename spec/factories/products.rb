@@ -3,6 +3,5 @@ FactoryBot.define do
     sequence(:name) { |n| "product#{n}" }
     description { 'description' }
     stock_amount { 12 }
-
   end
 end

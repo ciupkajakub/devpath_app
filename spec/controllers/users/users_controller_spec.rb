@@ -7,14 +7,14 @@ RSpec.describe Users::RegistrationsController do
         sign_in user
         @request.env['devise.mapping'] = Devise.mappings[:user]
 
-        put :update, :params => { :user => { 'email' => 'user@user.com',
-                                             'password' => '',
-                                             ' password_confirmation' => '',
-                                             'current_password' => '123456',
-                                             'first_name' => 'Bob',
-                                             'last_name' => 'Marley' } }
+        put :update, params: { user: { 'email' => 'user@user.com',
+                                       'password' => '',
+                                       ' password_confirmation' => '',
+                                       'current_password' => '123456',
+                                       'first_name' => 'Bob',
+                                       'last_name' => 'Marley' } }
 
-        expect(user.reload).to have_attributes(:first_name => 'Bob', :last_name => 'Marley')
+        expect(user.reload).to have_attributes(first_name: 'Bob', last_name: 'Marley')
       end
     end
     describe 'When user is not signed in' do
@@ -22,14 +22,15 @@ RSpec.describe Users::RegistrationsController do
         user = create(:user)
         @request.env['devise.mapping'] = Devise.mappings[:user]
 
-        put :update, :params => { :user => { 'email' => 'user@user.com',
-                                             'password' => '',
-                                             'password_confirmation' => '',
-                                             'current_password' => '123456',
-                                             'first_name' => 'Bob',
-                                             'last_name' => 'Marley' } }
+        put :update, params: { user: { 'email' => 'user@user.com',
+                                       'password' => '',
+                                       'password_confirmation' => '',
+                                       'current_password' => '123456',
+                                       'first_name' => 'Bob',
+                                       'last_name' => 'Marley' } }
 
-        expect(user.reload).to have_attributes(:first_name => "#{user.first_name}", :last_name => "#{user.last_name}")
+        expect(user.reload).to have_attributes(first_name: user.first_name.to_s,
+                                               last_name: user.last_name.to_s)
       end
     end
   end
