@@ -44,6 +44,5 @@ RSpec.describe BuyPurchaseProducts do
 
       expect { BuyPurchaseProducts.call(current_purchase) }.to change { purchase.reload.purchase_date }
     end
-
   end
 end

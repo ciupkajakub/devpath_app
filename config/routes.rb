@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'purchase_products' => 'purchase_products#create', as: :create_purchase_products
   patch 'cart' => 'cart#update', as: :update_purchase_product
   delete 'cart' => 'cart#destroy', as: :destroy_purchase_product
-  put 'cart' => 'cart#buy', as: :buy_purchase_products #how to solve two update actions
+  put 'cart' => 'cart#buy', as: :buy_purchase_products
 
   resources :cart, only: [:index]
 
@@ -28,14 +28,13 @@ Rails.application.routes.draw do
     get 'admin/edit' => 'admins/registrations#edit', :as => 'edit_admin_registration'
     put 'admin' => 'admins/registrations#update', :as => 'admin_registration'
     get '/admin/main' => 'admins/admins#index', as: :admin_main
-    get '/admin/users' => 'admins/admins#index', as: :users #wtf
+    get '/admin/users' => 'admins/users#index', as: :admin_users
     post 'admin/users' => 'admins/users#create', as: :create_user
     get '/admin/users/new' => 'admins/users#new', as: :new_users
   end
 
   scope 'admin' do
     resources :categories, controller: 'admins/categories'
-    # post 'products' => 'admins/products#upload_product_csv', as: :upload_product_csv
     resources :products, controller: 'admins/products' do
       member do
         patch 'archive', as: :archive

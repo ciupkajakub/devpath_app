@@ -48,4 +48,3 @@ RSpec.describe Admins::BestsellerQuery do
     end
   end
 end
-

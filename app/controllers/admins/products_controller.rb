@@ -18,7 +18,6 @@ class Admins::ProductsController < ApplicationController
   def edit; end
 
   def create
-    # binding.pry
     @product = Product.new(product_params)
     @product.save
     redirect_to products_path
@@ -43,7 +42,7 @@ class Admins::ProductsController < ApplicationController
     end
   end
 
-  def archive #decorator maybe 🥸
+  def archive
     if product_archived
       @product.update(archived_at: nil)
     else

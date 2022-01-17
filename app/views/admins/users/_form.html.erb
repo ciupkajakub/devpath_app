@@ -1,18 +1,18 @@
 <%= form_with(model: user, url: create_user_path) do |form| %>
 
-  <div class="field">
+  <div class='field'>
     <%= form.label :first_name %>
     <%= form.text_field :first_name %>
   </div>
-  <div class="field">
+  <div class='field'>
     <%= form.label :last_name %>
     <%= form.text_field :last_name %>
   </div>
-  <div class="field">
+  <div class='field'>
     <%= form.label :email %>
     <%= form.email_field :email %>
   </div>
-  <div class="field">
+  <div class='field'>
     <%= form.submit %>
   </div>
 <% end %>

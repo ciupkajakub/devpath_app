@@ -25,8 +25,8 @@ RSpec.describe Admins::ProductsController do
         sign_in admin
         category1 = create(:category, category_uid: 'b26a58a0-ec49-4009-b616-f4111e40619c')
         category2 = create(:category, category_uid: 'b26a58a0-ec49-4009-b616-f4111e40619d')
-        product = create(:product, product_uid: 'b26a44a0-ec49-4009-b616-f4111e40619c', category_ids: ["#{category1.id}"])
-        # binding.pry
+        product = create(:product, product_uid: 'b26a44a0-ec49-4009-b616-f4111e40619c',
+                         category_ids: ["#{category1.id}"])
         patch :update, params: { product: { 'name' => 'apple',
                                             'description' => 'tasty apple',
                                             'stock_amount' => '10' }, 'id' => "#{product.id}",
@@ -46,7 +46,6 @@ RSpec.describe Admins::ProductsController do
           sign_in admin
           category1 = create(:category, name: 'Fruits')
           category2 = create(:category, name: 'Meat')
-          # binding.pry
           file = CSV.generate do |csv|
             csv << ['name', 'description', 'stock_amount', 'category'] #hash keys
             csv << ['apple', 'tasty', 30, 'Fruits']
@@ -103,7 +102,8 @@ RSpec.describe Admins::ProductsController do
           admin = create(:admin)
           sign_in admin
           category1 = create(:category, category_uid: 'b26a58a0-ec49-4009-b616-f4111e40619c')
-          product = create(:product, product_uid: 'b26a44a0-ec49-4009-b616-f4111e40619c', category_ids: ["#{category1.id}"])
+          product = create(:product, product_uid: 'b26a44a0-ec49-4009-b616-f4111e40619c',
+                           category_ids: ["#{category1.id}"])
           expect { patch :archive, params: { 'id' => "#{product.id}" } }.to change { product.reload.archived_at }
         end
       end
@@ -112,7 +112,8 @@ RSpec.describe Admins::ProductsController do
           admin = create(:admin)
           sign_in admin
           category1 = create(:category, category_uid: 'b26a58a0-ec49-4009-b616-f4111e40619c')
-          product = create(:product, product_uid: 'b26a44a0-ec49-4009-b616-f4111e40619c', category_ids: ["#{category1.id}"], archived_at: DateTime.now)
+          product = create(:product, product_uid: 'b26a44a0-ec49-4009-b616-f4111e40619c',
+                           category_ids: ["#{category1.id}"], archived_at: DateTime.now)
           patch :archive, params: { 'id' => "#{product.id}" }
           expect(product.reload.archived_at).to eq(nil)
         end
@@ -120,4 +121,3 @@ RSpec.describe Admins::ProductsController do
     end
   end
 end
-#add specs

@@ -1,29 +1,29 @@
 <%= form_with(model: product) do |form| %>
 
-  <div class="field">
+  <div class='field'>
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
-  <div class="field">
+  <div class='field'>
     <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
-  <div class="field">
+  <div class='field'>
     <%= form.label :image %>
     <%= form.file_field :image %>
   </div>
   <p>Categories</p>
   <% Category.all.each do |category| %>
-    <div class="field">
-      <%= check_box_tag "category_ids[]", [category.id], product.categories.include?(category) %>
+    <div class='field'>
+      <%= check_box_tag 'category_ids[]', [category.id], product.categories.include?(category) %>
       <%= form.label "#{category.name}" %>
     </div>
   <% end %>
-  <div class="field">
+  <div class='field'>
     <%= form.label :stock_amount %>
     <%= form.number_field :stock_amount %>
   </div>
-  <div class="field">
+  <div class='field'>
     <%= form.submit %>
   </div>
 <% end %>

@@ -6,13 +6,13 @@
   <%= f.label :purchase_date_lteq, 'Date to' %>
   <%= f.text_field :purchase_date_lteq %>
 
-  <%= f.label :purchase_products_product_id_eq, "Products" %>
+  <%= f.label :purchase_products_product_id_eq, 'Products' %>
   <%= f.collection_select :purchase_products_product_id_eq, Product.order(:name), :id, :name, include_blank: 'All' %>
 
-  <%= f.label :aasm_state_eq, "Purchase state" %>
+  <%= f.label :aasm_state_eq, 'Purchase state' %>
   <%= f.select :aasm_state_eq, ['pending', 'bought'], include_blank: 'All' %>
 
-  <%= f.label :user_email_eq, "Users" %>
+  <%= f.label :user_email_eq, 'Users' %>
   <%= f.collection_select :user_email_eq, User.order(:email), :email, :email, include_blank: 'All' %>
 
   <%= f.submit %>
@@ -52,5 +52,5 @@
 </table>
 <%= paginate @purchases %>
 <p>
-  <%= button_to "Export xls", export_purchases_purchases_path(params: { :q => @query_params }, format: 'xlsx'), method: :post %>
+  <%= button_to 'Export xls', export_purchases_purchases_path(params: { :q => @query_params }, format: 'xlsx'), method: :post %>
 </p>

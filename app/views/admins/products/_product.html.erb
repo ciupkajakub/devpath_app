@@ -7,14 +7,14 @@
     <strong>description:</strong>
     <%= product.description %>
   </p>
-  <div style="width: 90px; height: auto">
+  <div style='width: 90px; height: auto'>
     <%= product.image %>
   </div>
   <p>
-    <%= link_to "Edit this product", edit_product_path(@product) %>
+    <%= link_to 'Edit this product', edit_product_path(@product) %>
   </p>
   <p>
-    <%= link_to "Back to categories", categories_path %>
+    <%= link_to 'Back to products', products_path %>
   </p>
 </div>
 
