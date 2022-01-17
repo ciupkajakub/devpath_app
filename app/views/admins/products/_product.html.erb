@@ -11,13 +11,13 @@
     <%= product.image %>
   </div>
   <p>
-    <%= link_to 'Edit this product', edit_product_path(@product) %>
+    <%= link_to 'Edit this product', edit_product_path(product) %>
   </p>
   <p>
     <%= link_to 'Back to products', products_path %>
   </p>
 </div>
 
-<%= form_with(model: @product, url: :archive_product) do |form| %>
+<%= form_with(model: product, url: :archive_product) do |form| %>
   <%= form.submit 'Archive' %>
 <% end %>
