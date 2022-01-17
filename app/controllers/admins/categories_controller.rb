@@ -32,6 +32,8 @@ module Admins
       if @category.products == []
         @category.destroy
         redirect_to categories_path
+      else
+        redirect_to categories_path, notice: 'This category contains products.'
       end
     end
 
