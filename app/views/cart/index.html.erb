@@ -7,7 +7,6 @@
   </tr>
   <% @purchase_products.each do |product| %>
     <tr>
-      <%#= binding.pry %>
       <td><%= product.product.name %></td>
       <td><%= product.product_amount %></td>
       <td>
@@ -26,7 +25,6 @@
     </tr>
   <% end %>
 </table>
-<!--maybe some turbo 🙄-->
 
 <%= form_with(model: @current_purchase, url: :buy_purchase_products, method: :put) do |form| %>
   <%= form.submit 'Buy products' %>
